@@ -2799,6 +2799,8 @@ package body Tree_Walk is
    begin
       if Nkind (N) = N_Op_Concat then
          return Do_Op_Concat (N);
+      elsif Nkind (N) = N_Op_Not then
+      	 return Do_Operator_Not (N);
       else
          if Nkind (N) /= N_And_Then
            and then Nkind (N) /= N_In
@@ -2812,6 +2814,14 @@ package body Tree_Walk is
          return Do_Operator_Simple (N);
       end if;
    end Do_Operator_General;
+
+   function Do_Operator_Not (N : Node_Id) return Irep is
+   		Op_Not : constant Irep := New_Irep (I_Op_Not);
+   		Ret : constant Irep := New_Irep;
+   begin
+   		Set_Source_Location(Ret, Sloc (N));
+   		Append_Op(Op)
+   end Do_Operator_Not;
 
    ------------------------
    -- Do_Operator_Simple --
